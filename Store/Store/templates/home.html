@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load permission_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html> 
+  <!--<p>Your birth date: {{ user.profile.birth_date }}</p>-->
+<head>
+ <!-- <link rel="stylesheet" href="/static/styles.css"> <!--YOU'LL THIS EFFECT AS BLUE BECAUSE WE HAVE MENTIONED ADDED A NEW FOLDER AND colors and applied css in it --> 
+ <title>Home</title>
+</head>
+<div class="container-fluid">
+<body>
+<h4>
+<div class="container-fluid">
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">MySite</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class='active'><a href="#">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class='inactive'><a href="{% url 'addproducts'%}">Add Products</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+  </div>
+</nav> 
+</h4>
+<div class="jumbotron">
+<br><br>
+<h2>Inventory Products</h2>
+<table class="table table-bordered" style="width:50%" align="center" font size="90">
+ <tr>
+    <th>ProductId</th>
+    <th>ProductName</th>
+    <th>Vendor</th>
+	<th>MRP</th>
+	<th>BatchNo.</th>
+    <th>BatchDate</th>
+    <th>Quantity</th>
+    <th>Status(Approved)</th>
+ </tr>
+ <tr>
+  {% for h in product %}
+    <td>{{ h.productid }}</td>
+    <td>{{ h.productname }}</td>
+    <td>{{ h.vendor }}</td>
+    <td>{{ h.mrp }}</td>
+    <td>{{ h.batchnumber }}</td>
+    <td>{{ h.batchdate }}</td>
+    <td>{{ h.quantity }}</td>
+    <td>{{ h.status_approved }}</td>
+   </tr>
+  {% endfor %}
+</table>
+<br><br>
+</div>
+  {% endblock %}  
+	 <!--<br>{{ user.date_joined }}</br> <br>You Logged in @{{ user.last_login }}!</h2>-->
+</body>
+</div>
+</div>
+</html>
+
+
+
