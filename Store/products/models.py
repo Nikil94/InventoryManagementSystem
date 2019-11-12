@@ -13,7 +13,8 @@ class Profile(models.Model):
 
 class Products(models.Model):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    productid = models.IntegerField(max_length=10, blank=True)
+    user_id = models.ForeignKey(User, unique=True, blank=True, null=True)
+    productid = models.IntegerField(max_length=10, unique=True, blank=True)
     productname = models.CharField(max_length=255, blank=True)
     vendor = models.CharField(max_length=100, blank=True)
     mrp = models.IntegerField(max_length=10, blank=True)

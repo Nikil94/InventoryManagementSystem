@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 from . models import Products, Profile
 from . forms import SignUpForm, ProductsForm
 from django.shortcuts import render, redirect
@@ -12,9 +13,13 @@ def samplemethod(request):
 
 @login_required
 def home(request):
-    products = Products.objects.all()
+    products = Products.objects.filter(user_id=request.user.id)
     #profile = Profile.objects.all()
     return render(request, 'home.html', {'product': products })
+
+def viewproducts(request):
+    allproducts = Products.objects.all()
+    return render(request, 'allproducts.html', {'allproducts': allproducts})
 
 def signup(request):
     if request.method == 'POST':
@@ -42,11 +47,12 @@ def addproducts(request):
         form = ProductsForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponse('Your data has been submitted')
-
+            store = form.save(commit=False)
+            user = User.objects.get(id=request.user.id) #Fetching Logged In user ID from DB
+            store.user_id = user #Setting LoggedIn UserID to Product table
+            #store.refresh_from_db()
+            store.save()
+            return redirect('home')
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ProductsForm()

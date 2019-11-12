@@ -4,9 +4,10 @@ from . import views
 
 urlpatterns = [
     #url(r'^$', views.samplemethod, name='samplemethod'),
-    url(r'^$', views.home, name='home'),
+    url(r'^home/$', views.home, name='home'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^addproducts/$', views.addproducts, name='addproducts'),
+    url(r'^viewproducts/$', views.viewproducts, name='viewproducts'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
 ]

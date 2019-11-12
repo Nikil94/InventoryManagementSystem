@@ -24,7 +24,11 @@ class SignUpForm(UserCreationForm):
         return TemplateResponse(request, 'templates/signup.html', {'data': data})
 
 
-class ProductsForm(forms.Form):
+class ProductsForm(forms.ModelForm):
+
+    class Meta:
+        model = Products
+        fields = ('productid', 'productname', 'vendor', 'mrp', 'batchnumber', 'quantity', 'status_approved')
 
     productid = forms.IntegerField(label='Enter ProductId')
     productname = forms.CharField(label='Enter Product Name', max_length=100)

@@ -19,13 +19,13 @@
       <a class="navbar-brand" href="#">MySite</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class='active'><a href="#">Home</a></li>
+      <li class='inactive'><a href="{% url 'home'%}">Home</a></li>
     </ul>
     <ul class="nav navbar-nav">
       <li class='inactive'><a href="{% url 'addproducts'%}">Add Products</a></li>
     </ul>
     <ul class="nav navbar-nav">
-      <li class='inactive'><a href="{% url 'viewproducts'%}">All Products</a></li>
+      <li class='active'><a href="{% url 'viewproducts'%}">All Products</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -35,6 +35,7 @@
 </h4>
 <div class="jumbotron">
 <br><br>
+    {% if user.is_authenticated and user.is_superuser %}
 <h2>Inventory Products</h2>
 <table class="table table-bordered" style="width:50%" align="center" font size="90">
  <tr>
@@ -48,7 +49,7 @@
     <th>Status(Approved)</th>
  </tr>
  <tr>
-  {% for h in product %}
+  {% for h in allproducts %}
     <td>{{ h.productid }}</td>
     <td>{{ h.productname }}</td>
     <td>{{ h.vendor }}</td>
@@ -61,7 +62,11 @@
   {% endfor %}
 </table>
 <br><br>
+    {% else %}
+    <p>You must a Manager to view all products</p>
+    {% endif %}
 </div>
+
   {% endblock %}  
 	 <!--<br>{{ user.date_joined }}</br> <br>You Logged in @{{ user.last_login }}!</h2>-->
 </body>

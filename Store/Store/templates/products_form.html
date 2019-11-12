@@ -18,6 +18,7 @@
     <ul class="nav navbar-nav">
       <li><a href="{% url 'home' %}">Home</a></li>
       <li class='active'><a href="#">Add Products</a></li>
+      <li class='inactive'><a href="{% url 'viewproducts'%}">All Products</a></li>
     </ul>
 	<ul class="nav navbar-nav navbar-right">
       <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -27,6 +28,7 @@
 </h4>
 
 <div class="jumbotron">
+{% if user.is_authenticated and user.is_staff or user.is_superuser %}
 <h3 align="center">Add Products</h3>
 <br><br>
 <form method="post" enctype="multipart/form-data" class="form-inline">
@@ -35,22 +37,15 @@
         {{ form.as_p }}
 	</div>
 
-{% if request.user.is_superuser %}
+
 <br>        <!-- <button type="submit" id="list">Upload</button> -->
     <button type="submit" class="btn btn-info" id="list">
         <span class="glyphicon glyphicon-upload"></span> Upload
     </button>
-
-<br><br><br><br>
-<p><a href="{% url 'home' %}">Return to home</a></p>
-
-{% else %}
-<br>        <!-- <button type="submit" id="list">Upload</button> -->
-    <button type="submit" class="btn btn-info" id="list">
-        <span class="glyphicon glyphicon-upload"></span> Submit
-    </button>
-
+    {% else %}
+<p> You Don't have Permission to add products </p>
 {% endif %}
+
 </form>
 </div>
 {% endblock %}
