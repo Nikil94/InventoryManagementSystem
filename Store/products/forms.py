@@ -28,7 +28,7 @@ class ProductsForm(forms.ModelForm):
 
     class Meta:
         model = Products
-        fields = ('productid', 'productname', 'vendor', 'mrp', 'batchnumber', 'quantity', 'status_approved')
+        fields = ('productid', 'productname', 'vendor', 'mrp', 'batchnumber', 'quantity')
 
     productid = forms.IntegerField(label='Enter ProductId')
     productname = forms.CharField(label='Enter Product Name', max_length=100)
@@ -36,5 +36,5 @@ class ProductsForm(forms.ModelForm):
     mrp = forms.IntegerField(label='Enter MRP Value')
     batchdate = forms.DateTimeField(initial=datetime.now(), required=False)
     batchnumber = forms.IntegerField(label='Enter Batch Number')
-    quantity = forms.IntegerField(label='Enter quantity')
-    status_approved = forms.BooleanField()
+    quantity = forms.IntegerField(label='Enter Quantity')
+    status_approved = forms.NullBooleanField(widget = forms.HiddenInput(), required = False)

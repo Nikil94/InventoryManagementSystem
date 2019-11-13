@@ -46,7 +46,8 @@
 	<th>BatchNo.</th>
     <th>BatchDate</th>
     <th>Quantity</th>
-    <th>Status(Approved)</th>
+    <th>Status</th>
+    <th>Delete</th>
  </tr>
  <tr>
   {% for h in allproducts %}
@@ -57,7 +58,8 @@
     <td>{{ h.batchnumber }}</td>
     <td>{{ h.batchdate }}</td>
     <td>{{ h.quantity }}</td>
-    <td>{{ h.status_approved }}</td>
+    <td>{{ h.status_approved }} <a href="{% url 'updateproductstatus' h.productid %}">(Approve)</a></td>
+    <td><a href="{% url 'deleteproduct' h.productid %}">Delete</a></td>
    </tr>
   {% endfor %}
 </table>

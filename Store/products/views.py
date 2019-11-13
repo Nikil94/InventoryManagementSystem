@@ -7,19 +7,33 @@ from django.contrib.auth.models import User
 from . models import Products, Profile
 from . forms import SignUpForm, ProductsForm
 from django.shortcuts import render, redirect
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 def samplemethod(request):
     return HttpResponse("This a test message")
 
 @login_required
+
 def home(request):
-    products = Products.objects.filter(user_id=request.user.id)
-    #profile = Profile.objects.all()
-    return render(request, 'home.html', {'product': products })
+        products = Products.objects.filter(user_id=request.user.id)
+        #profile = Profile.objects.all()
+        return render(request, 'home.html', {'product': products })
+
+def deleteproduct(request, id):
+    note = get_object_or_404(Products, productid=id).delete()
+    return HttpResponse("Product Deleted")
 
 def viewproducts(request):
     allproducts = Products.objects.all()
     return render(request, 'allproducts.html', {'allproducts': allproducts})
+
+def updateproductstatus(request, id):
+    precord = Products.objects.get(productid=id)
+    precord.status_approved = 'Approved'
+    precord.save()
+    return redirect('viewproducts')
 
 def signup(request):
     if request.method == 'POST':
