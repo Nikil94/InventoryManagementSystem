@@ -1,0 +1,11 @@
+Django==1.11.17
+django-admin-view-permission==1.9
+django-bootstrap3==11.1.0
+django-discover-runner==1.0
+django-role-permissions==2.2.1
+django-tables2==2.1.1
+djangorestframework==3.10.3
+psycopg2==2.8.4
+pytz==2019.3
+six==1.13.0
+sqlparse==0.3.0
