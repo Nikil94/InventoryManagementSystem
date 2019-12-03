@@ -6,11 +6,13 @@
 <html> 
   <!--<p>Your birth date: {{ user.profile.birth_date }}</p>-->
 <head>
- <!-- <link rel="stylesheet" href="/static/styles.css"> <!--YOU'LL THIS EFFECT AS BLUE BECAUSE WE HAVE MENTIONED ADDED A NEW FOLDER AND colors and applied css in it --> 
+ <!-- <link rel="stylesheet" href="/static/styles.css"> > <!-- YOU'LL THIS EFFECT AS BLUE BECAUSE WE HAVE MENTIONED ADDED A NEW FOLDER AND colors and applied css in it -->
  <title>Home</title>
+
 </head>
-<div class="container-fluid">
+
 <body>
+<div class="container-fluid">
 <h4>
 <div class="container-fluid">
  <nav class="navbar navbar-default">
@@ -26,6 +28,9 @@
     </ul>
     <ul class="nav navbar-nav">
       <li class='active'><a href="{% url 'viewproducts'%}">All Products</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class='inactive'><a href="{% url 'search'%}">Search</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -59,21 +64,23 @@
     <td>{{ h.batchdate }}</td>
     <td>{{ h.quantity }}</td>
     <td>{{ h.status_approved }} <a href="{% url 'updateproductstatus' h.productid %}">(Approve)</a></td>
-    <td><a href="{% url 'deleteproduct' h.productid %}">Delete</a></td>
-   </tr>
+    <td><a class="deletebutton"  href="#" data-catid="{{ h.productid }}">Delete</a></td>
+ </tr>
   {% endfor %}
 </table>
 <br><br>
     {% else %}
-    <p>You must a Manager to view all products</p>
+    <p>You must be a Manager to view all products</p>
     {% endif %}
 </div>
 
   {% endblock %}  
 	 <!--<br>{{ user.date_joined }}</br> <br>You Logged in @{{ user.last_login }}!</h2>-->
+</div>
+</div>
 </body>
-</div>
-</div>
+
+
 </html>
 
 

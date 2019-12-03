@@ -1,0 +1,91 @@
+{% load staticfiles %}
+{% load permission_tags %}
+{% block content %}
+<!DOCTYPE html>
+<meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="{% static "css/base.css" %}" /> <!--This is good practise -->
+      <script type="text/javascript" src="{% static "javascript/rango-jquery.js" %}"></script> 
+<head>
+</head>
+<div class="container-fluid">
+<body>
+<div class="container-fluid">
+ <nav class="navbar navbar-default">
+    <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">MySite</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class='inactive'><a href="{% url 'home'%}">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class='inactive'><a href="{% url 'addproducts'%}">Add Products</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class='inactive'><a href="{% url 'viewproducts'%}">All Products</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class='active'><a href="{% url 'search'%}">Search</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+  </div>
+</nav> 
+</h4>
+<div class="jumbotron">
+<h2>Inventory Products</h2>
+<br>
+<!-- -->
+<h2>Search for your Product and experience our System</h2>
+
+<br/>
+<form action="{% url 'search' %}" method="GET" value="{{request.GET.q}}">
+Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Enter Product/Product id"/>
+<input type="submit" name="submit" value="Search"/>
+</form>
+
+
+{% if submitbutton == 'Search' and request.GET.q != '' %}
+{% if results %}
+<h4>Results for <b>{{ request.GET.q }}</b></h4>
+<br/><br/>
+
+<table class="table table-bordered" style="width:100%" align="center" font size="50">
+ <tr>
+    <th>Productid</th>
+    <th>Product Name</th>
+	<th>Vendor</th>
+	<th>MRP</th>
+	<th>Batchdate</th>
+	<th>Quantity</th>
+ </tr>
+ <tr>
+  {% for result in results %}
+    <td>{{ result.productid }}</td>
+    <td>{{ result.productname }}</td>
+	<td>{{ result.vendor }}</td>
+    <td>{{ result.mrp }}</td>
+    <td>{{ result.batchdate }}</td>
+    <td>{{ result.quantity }}</td>
+   </tr>
+  {% endfor %}
+</table>
+{% else %}
+<br>
+No search results for this query
+{% endif %}
+{% endif %}
+  <br><br>
+
+</font>
+</div>
+  {% endblock %}  
+</body>
+</div>
+</div>
+</html>

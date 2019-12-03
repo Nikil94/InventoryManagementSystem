@@ -1,4 +1,4 @@
-Django==1.11.23
+Django==1.11.17
 django-admin-view-permission==1.9
 django-bootstrap3==11.1.0
 django-discover-runner==1.0
